@@ -1,7 +1,7 @@
 import axios from '../api/axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import './Row.css';
-// import MovieModal from './MovieModal';
+import MovieModal from './MovieModal';
 
 // import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 // import { Swiper, SwiperSlide } from 'swiper/react';
@@ -102,7 +102,7 @@ const Row = ({ title, id, fetchUrl }) => {
               className="row__poster"
               src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
               alt={movie.name}
-              // onClick={() => handleClick(movie)}
+              onClick={() => handleClick(movie)}
             />
           ))}
         </div>
@@ -117,6 +117,10 @@ const Row = ({ title, id, fetchUrl }) => {
           </span>
         </div>
       </div>
+
+      {modalOpen && (
+        <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
+      )}
     </div>
   );
 };
