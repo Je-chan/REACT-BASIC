@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Nav = () => {
   const [show, setShow] = useState(false);
   const { pathName } = useLocation();
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   const navigate = useNavigate();
 
@@ -22,24 +22,24 @@ const Nav = () => {
     }
   };
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
-    <NavWrapper show={show}>
+    <NavWrapper show={show.toString()}>
       <Logo>
         <img
           alt="Diseny Plus Logo"
           src="/images/logo.svg"
-          onClick={() => (window.location.href = '/')}
+          onClick={() => (window.location.href = "/")}
         />
       </Logo>
 
-      {pathName === '/' ? (
+      {pathName === "/" ? (
         <Login>Login</Login>
       ) : (
         <Input
@@ -88,7 +88,8 @@ const NavWrapper = styled.nav`
   left: 0;
   right: 0;
   height: 70px;
-  background-color: ${(props) => (props.show ? '#090b13' : 'transparent')};
+  background-color: ${(props) =>
+    props.show === "false" ? "#090b13" : "transparent"};
   display: flex;
   justify-content: space-between;
   align-items: center;
