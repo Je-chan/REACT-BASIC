@@ -1,10 +1,10 @@
-import React from 'react';
-import { styled } from 'styled-components';
-import Nav from '../../components/Nav';
-import Banner from '../../components/Banner';
-import Category from '../../components/Category';
-import Row from '../../components/Row';
-import requests from '../../api/request';
+import React from "react";
+import { styled } from "styled-components";
+import Nav from "../../components/Nav";
+import Banner from "../../components/Banner";
+import Category from "../../components/Category";
+import Row from "../../components/Row";
+import requests from "../../api/request";
 
 const Main = () => {
   return (
@@ -39,9 +39,9 @@ const Container = styled.main`
   padding: 0 calc(3.5vw + 5px);
 
   &:after {
-    background: url('/images/home-background.png') center center/ cover
+    background: url("/images/home-background.png") center center/ cover
       no-repeat fixed;
-    content: '';
+    content: "";
     position: absolute;
     inset: 0px;
     opacity: 1;

@@ -1,10 +1,10 @@
-import { Outlet, Route, Routes } from 'react-router-dom';
-import './App.css';
-import Nav from './components/Nav';
-import Login from './pages/Login';
-import Main from './pages/Main';
-import Detail from './pages/Detail';
-import Search from './pages/Search';
+import { Outlet, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Nav from "./components/Nav";
+import Login from "./pages/Login";
+import Main from "./pages/Main";
+import Detail from "./pages/Detail";
+import Search from "./pages/Search";
 
 const Layout = () => {
   return (
