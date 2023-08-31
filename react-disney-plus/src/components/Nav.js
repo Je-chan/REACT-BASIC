@@ -19,6 +19,7 @@ const Nav = () => {
       setShow(true);
     } else {
       setShow(false);
+      0;
     }
   };
   useEffect(() => {
