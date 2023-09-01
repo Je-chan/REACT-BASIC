@@ -12,6 +12,7 @@ root.render(
     <BrowserRouter>
       <App />
     </BrowserRouter>
+    O
   </React.StrictMode>
 );
 
