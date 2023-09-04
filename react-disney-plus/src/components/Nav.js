@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Nav = () => {
   const [show, setShow] = useState(false);
-  const { pathName } = useLocation();
+  const { pathname } = useLocation();
   const [searchValue, setSearchValue] = useState("");
 
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const Nav = () => {
       setShow(false);
     }
   };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
@@ -28,6 +30,15 @@ const Nav = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+
+  const handleAuth = () => {
+    signInWithPopup(auth, provider)
+      .then((r) => {})
+      .catch((err) => console.error(err));
+  };
 
   return (
     <NavWrapper show={show}>
@@ -38,9 +49,8 @@ const Nav = () => {
           onClick={() => (window.location.href = "/")}
         />
       </Logo>
-
-      {pathName === "/" ? (
-        <Login>Login</Login>
+      {pathname === "/" ? (
+        <Login onClick={handleAuth}>Login</Login>
       ) : (
         <Input
           value={searchValue}
