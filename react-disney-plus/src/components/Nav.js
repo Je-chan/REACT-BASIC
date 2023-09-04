@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "firebase/auth";
 
 const Nav = () => {
   const [show, setShow] = useState(false);
@@ -31,6 +36,7 @@ const Nav = () => {
     };
   }, []);
 
+  /* AUTH CHECK */
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
 
@@ -39,6 +45,18 @@ const Nav = () => {
       .then((r) => {})
       .catch((err) => console.error(err));
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (pathname === "/") {
+          navigate("/main");
+        }
+      } else {
+        navigate("/");
+      }
+    });
+  }, [auth, navigate]);
 
   return (
     <NavWrapper show={show}>
