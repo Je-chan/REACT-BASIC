@@ -38,7 +38,11 @@ const Nav = () => {
   }, []);
 
   /* AUTH CHECK */
-  const [userData, setUserData] = useState({});
+  const initialUserData = localStorage.getItem("user_data")
+    ? JSON.parse(localStorage.getItem("user_data"))
+    : {};
+  const [userData, setUserData] = useState(initialUserData);
+
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
 
@@ -46,6 +50,7 @@ const Nav = () => {
     signInWithPopup(auth, provider)
       .then((r) => {
         setUserData(r.user);
+        localStorage.setItem("user_data", JSON.stringify(r.user));
       })
       .catch((err) => console.error(err));
   };
@@ -69,7 +74,7 @@ const Nav = () => {
         navigate("/");
       }
     });
-  }, [auth, navigate]);
+  }, [auth, navigate, pathname]);
 
   return (
     <NavWrapper show={show}>
