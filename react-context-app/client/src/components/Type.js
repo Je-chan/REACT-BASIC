@@ -1,6 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Products from "./Products";
+import Options from "./Options";
 
 function Type({ orderType }) {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    loadItems(orderType);
+  }, [orderType]);
+
+  const loadItems = async (orderType) => {
+    try {
+      const res = await axios.get(`http://localhost:4000/${orderType}`);
+      setItems(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const ItemComponent = orderType === "products" ? Products : Options;
+
+  const optionItems = items.map((item) => (
+    <ItemComponent
+      key={item.name}
+      name={item.name}
+      imagePath={item.imagePath}
+    />
+  ));
   return (
     <div>
       <h2>주문 종류</h2>
@@ -12,7 +39,7 @@ function Type({ orderType }) {
           flexDirection: orderType === "options" ? "column" : "row",
         }}
       >
-        ITEMS
+        {optionItems}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 
 function Options(props) {
-  return <div></div>;
+  return <div>Options</div>;
 }
 
 export default Options;
