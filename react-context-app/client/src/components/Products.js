@@ -3,6 +3,7 @@ import React from "react";
 const Products = ({ name, imagePath, updateItemCount }) => {
   const handleChange = (event) => {
     const currentValue = event.target.value;
+
     updateItemCount(name, currentValue);
   };
 
