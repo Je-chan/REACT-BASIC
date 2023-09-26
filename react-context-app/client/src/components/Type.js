@@ -9,7 +9,7 @@ function Type({ orderType }) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    loadItems(orderType);
+    loadItems(orderType).then(console.log);
   }, [orderType]);
 
   const loadItems = async (orderType) => {
