@@ -23,14 +23,6 @@ function Type({ orderType }) {
 
   const ItemComponent = orderType === "products" ? Products : Options;
 
-  const optionItems = items.map((item) => (
-    <ItemComponent
-      key={item.name}
-      name={item.name}
-      imagePath={item.imagePath}
-    />
-  ));
-
   if (error) {
     return <ErrorBanner message={"에러가 발생했습니다."}></ErrorBanner>;
   }
@@ -45,7 +37,13 @@ function Type({ orderType }) {
           flexDirection: orderType === "options" ? "column" : "row",
         }}
       >
-        {optionItems}
+        {items.map((item) => (
+          <ItemComponent
+            key={item.name}
+            name={item.name}
+            imagePath={item.imagePath}
+          />
+        ))}
       </div>
     </div>
   );

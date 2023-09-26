@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Type from "../../components/Type";
 
-const OrderPage = ({}) => {
+const OrderPage = () => {
   return (
     <div>
       <h1>Travel Products</h1>
