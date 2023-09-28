@@ -1,8 +1,8 @@
 import "./App.css";
 import SummaryPage from "./pages/SummaryPage";
 import OrderPage from "./pages/OrderPage";
+import CompletePage from "./pages/CompletePage";
 import { useState } from "react";
-import { CompletePage } from "./pages/CompletePage";
 
 function App() {
   const [step, setStep] = useState(0);
