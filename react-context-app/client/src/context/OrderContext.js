@@ -40,17 +40,17 @@ export function OrderContextProvider(props) {
   }, [orderCounts]);
 
   const value = useMemo(() => {
-    function updateItemCount(itemNm, newItemCounts, orderType) {
+    function updateItemCount(itemName, newItemCount, orderType) {
       const newOrderCounts = { ...orderCounts };
 
       const orderCountsMap = orderCounts[orderType];
-      orderCountsMap.set(itemNm, newItemCounts);
+      orderCountsMap.set(itemName, parseInt(newItemCount));
 
       setOrderCounts(newOrderCounts);
     }
 
     return [{ ...orderCounts, totals }, updateItemCount];
-  }, [orderCounts]);
+  }, [orderCounts, totals]);
 
   return <OrderContext.Provider value={value} {...props} />;
 }
