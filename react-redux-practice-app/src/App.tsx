@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 
 type Props = {
-  value: number;
+  value: any;
   onIncrement: () => void;
   onDecrement: () => void;
 };
@@ -10,8 +10,10 @@ type Props = {
 function App({ value, onIncrement, onDecrement }: Props) {
   return (
     <div className={"App"}>
-      Clicked: {value} times
+      {/*Clicked: {value} times*/}
+      <br />
       <button onClick={onIncrement}>+</button>
+      <br />
       <button onClick={onDecrement}>-</button>
     </div>
   );
