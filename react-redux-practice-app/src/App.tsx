@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./reducers";
+import { PostPayload } from "./reducers/posts";
+import { fetchPosts } from "./actions/post";
 
 type Props = {
   onIncrement: () => void;
@@ -11,9 +13,10 @@ type Props = {
 function App({ onIncrement, onDecrement }: Props) {
   const dispatch = useDispatch();
   // COUNTER
+  // useSelector : Store 의 값에 접근할 수 있는 Hooks
   const counter = useSelector((state: RootState) => state.counter);
 
-  // TODO
+  // TODO_STATE
   const todos: string[] = useSelector((state: RootState) => state.todos);
 
   const [todoValue, setTodoValue] = useState("");
@@ -27,7 +30,12 @@ function App({ onIncrement, onDecrement }: Props) {
     setTodoValue("");
   };
 
-  // useSelector : Store 의 값에 접근할 수 있는 Hooks
+  // THUNK
+  const posts: PostPayload[] = useSelector((state: RootState) => state.posts);
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   return (
     <div className={"App"}>
@@ -45,6 +53,11 @@ function App({ onIncrement, onDecrement }: Props) {
         <input type="text" value={todoValue} onChange={handleChange} />
         <input type="submit" />
       </form>
+      <ul>
+        {posts.map((post, idx) => (
+          <li key={idx}>{post.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
