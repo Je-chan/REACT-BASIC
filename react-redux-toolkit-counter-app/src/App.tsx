@@ -1,13 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import { Counter } from "./features/counter/Counter";
+import "./App.css";
+import Test from "./features/counter/Test";
 
 function App() {
+  const [isTestOpen, setIsTestOpen] = useState(true);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+
+        <button onClick={() => setIsTestOpen((prev) => !prev)}>TOGGLE</button>
+        {isTestOpen && <Test />}
+
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
