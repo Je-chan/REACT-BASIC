@@ -8,9 +8,11 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser, setUser } from "../store/userSlice";
 
 const Nav = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(0);
   const { pathname } = useLocation();
   const [searchValue, setSearchValue] = useState("");
 
@@ -23,9 +25,9 @@ const Nav = () => {
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
-      setShow(true);
+      setShow(1);
     } else {
-      setShow(false);
+      setShow(0);
     }
   };
 
@@ -38,10 +40,8 @@ const Nav = () => {
   }, []);
 
   /* AUTH CHECK */
-  const initialUserData = localStorage.getItem("user_data")
-    ? JSON.parse(localStorage.getItem("user_data"))
-    : {};
-  const [userData, setUserData] = useState(initialUserData);
+  const userData = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
@@ -49,7 +49,14 @@ const Nav = () => {
   const handleAuth = () => {
     signInWithPopup(auth, provider)
       .then((r) => {
-        setUserData(r.user);
+        dispatch(
+          setUser({
+            id: r.user.uid,
+            email: r.user.email,
+            displayName: r.user.displayName,
+            photoURL: r.user.photoURL,
+          }),
+        );
         localStorage.setItem("user_data", JSON.stringify(r.user));
       })
       .catch((err) => console.error(err));
@@ -58,7 +65,6 @@ const Nav = () => {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        setUserData({});
         navigate("/");
       })
       .catch((err) => console.error(err));
@@ -180,7 +186,8 @@ const NavWrapper = styled.nav`
   left: 0;
   right: 0;
   height: 70px;
-  background-color: ${(props) => (props.show ? "#090b13" : "transparent")};
+  background-color: ${(props) =>
+    props.show === 1 ? "#090b13" : "transparent"};
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -5,6 +5,7 @@ import "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyBulAYm3iPqaV3myj6Cy-po_fE2IzcXhAQ",
   authDomain: process.env.REACT_APP_FIREBASE_AUTO_DOMAIN,
