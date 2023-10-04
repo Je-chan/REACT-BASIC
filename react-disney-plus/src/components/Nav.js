@@ -65,6 +65,7 @@ const Nav = () => {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
+        removeUser();
         navigate("/");
       })
       .catch((err) => console.error(err));
