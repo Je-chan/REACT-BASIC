@@ -22,7 +22,7 @@ export const filteredTodoListState = selector({
       case "uncompleted":
         return list.filter((item) => !item.isComplete);
       default:
-        break;
+        return list;
     }
   },
 });
