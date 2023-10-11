@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+// @ts-ignore
 import { useRouter } from "next/navigation";
 
 function CreatePost() {

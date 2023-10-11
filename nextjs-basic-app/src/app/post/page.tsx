@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore
 import Link from "next/link";
 import CreatePost from "@/app/post/CreatePost";
 
@@ -18,7 +19,7 @@ async function PostPage() {
   return (
     <div>
       <h1>Posts</h1>
-      {posts?.map((post) => <PostItem key={post.id} post={post} />)}
+      {posts?.map((post: any) => <PostItem key={post.id} post={post} />)}
 
       <CreatePost />
     </div>
