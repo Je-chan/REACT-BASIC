@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 1. ORM
+- 객체와 관계형 데이터베이스의 데이터를 자동으로 변형 및 연결하는 작업
+- ORM 을 이용한 개발은 객체와 데이터베이스의 변형에 유연하게 사용할 수 있다
 
-## Getting Started
+## 1-1) ORM VS Pure Javascript
+```typescript jsx
+// ORM
+const boards = Board.find({
+	title: "Hello",
+	status: "PUBLIC"
+})
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+// PURE
+db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (err, result) => {
+	if(err) {
+		throw new Error('ERROR')
+	}
+	
+	boards = result.rows 
+} )
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 1-2) ORM 과 Node.js 추상화 계층
+- 개발에서 추상화를 많이 하면 할수록 복잡한 로직을 알지 못하더라도 그 로직을 간단하게 사용할 수 있게 해준다
+  - 불필요한 정보는 숨기고 중요한 정보만을 표현하기 때문
+- 데이터베이스도 사용하는 방법에 따라 추상화가 많이 돼 있는 라이브러리를 사용할 수도 있고, 그렇지 않은 라이브러리를 사용할 수 있다
+- 추상화는 약 3단계로 나눠서 살필 수 있다
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### (1) 저수준 : 데이터베이스 드라이버
+- 데이터베이스 드라이버는 데이터베이스 연결(때때로 연결 풀링)을 처리한다
+- 이 수준에서는 원시 SQL 문자열을 작성한다
+- Node.js 생태계에서는 이 계층에서 작동하는 라이브러리가 많이 존재한다
+  - mysql: MySQL 
+  - pg: PostgresSQL
+  - sqlite3: SQLite
+- 이런 라이브러는 기본적으로 동일한 방식으로 작동한다
+  - 데이터베이스 인증정보 가져오기
+  - 새 데이터베이스 인스턴스를 인스턴스화하기
+  - 데이터베이스 연결하기
+  - 문자열 형식으로 쿼리를 보내기
+  - 결과를 비동기적으로 처리하기
+  
+### (2) 중간 단계 : 쿼리 빌더
+- 단순한 데이터베이스 드라이버 모듈과 완전한 ORM 을 사용하는 것의 중간 단계
+- 이 단계에서 가장 주목할만한 Node.js 모듈은 Knex
+- 여기서 작성하는 쿼리는 기본 SQL 쿼리와 유사하다
+- 한 가지 좋은 점은 문자열을 연결하여 SQL 을 형성하는 경우(이런 경우 보안에 취약함)보다 더 친숙한 프로그래밍 방식으로 동적 쿼리 생성이 가능하다
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### (3) 고수준 : ORM
+- 최고 수준의 추상화
+- ORM 으로 작업할 때 더 많은 설정을 사전에 수행해야 한다
+- ORM 의 요점은 관계형 데이터베이스의 데이터를 애플리케이션의 객체(클래스 인스턴스)에 매핑하는 것
+- 관련 라이브러리도 많이 존재한다
+  - typeorm
+  - sequelize
+  - prisma
 
-## Learn More
+## 1-3) ORM 의 단점
+- SQL 이 아닌 ORM 자체를 배우게 된다
+- 각각의 특정 ORM 자체를 배우는 시간도 오래 걸리고 ORM 마다 다른 문법을 사용하는 경우 존재
+- ORM 을 이용해서 복잡한 호출을 하면 성능이 좋지 않을 수 있음
+  - Explain 을 사용해서 비용을 측정한 결과 ORM 이 성능이 더 떨어짐
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 1-4) ORM 의 장점
+- 하나의 소스 코드를 이용해서 여러 데이터베이스로 쉽게 교체가 가능하다
+- 중복 코드를 방지할 수 있다
+- SQL 인젝션 취약점으로부터 보호할 수 있다
+- 모델 유효성 검사를 지원한다
+- 타입스크립트를 지원한다
