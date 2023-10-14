@@ -84,3 +84,14 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
 - config 로 로그인한 사람만 들어갈 수 있는 페이지를 배열에 담을 수 있다
   - 만약 로그인을 하지 않았는데 해당 페이지에 접근하면 로그인 페이지로 넘어가게 만든다.
 - 단, env 에 NEXTAUTH_URL 에 도메인을, NEXTAUTH_SECRET 에 아무 string 이나 넣어줘야 함
+
+## 2-3) 각 User Type 마다 권한 다르게 부여하기
+- middleware 함수를 만들어서 navigation guard 처리를 할 수 있음
+  - "next-auth/jwt" 모듈에서 getToken() 을 가져오면 사용자의 토큰 정보를 알 수 있음 
+  - req.nextUrl.pathname 을 활용하면 현재 사용자가 접근하고자 하는 경로를 알 수 있음
+  - 위 두가지를 활용해 navigation guard 를 설정해주는 것
+- NextResponse 를 활용해서 redirection 해주면 된다
+
+## 2-3) User 타입 정보
+- 만약에 유저 정보에서 auto complete 되는 타입과 다른 타입을 사용하거나 수정해야한다면?
+- src/types 에 next-auth.d.ts 를 사용해 선언적으로 type 을 변경해야 한다
