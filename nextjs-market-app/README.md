@@ -77,4 +77,10 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
 ## 2-1) Client 컴포넌트로 유저 정보 Session 저장하기
 - next-auth 에서 제공해주는 <SessionProvider></SessionProvider> 를 RootLayout 에서 감싸준다
 - useSession() 을 활용해 로그인된 유저 정보를 어디서든 가져올 수 있다
-- 로그인, 로그아웃 하는 UI 도 자동으로 만들어준
+- 로그인, 로그아웃 하는 UI 도 자동으로 만들어준다
+
+## 2-2) 로그인한 사람만 들어가는 페이지
+- middleware.ts 를 참고
+- config 로 로그인한 사람만 들어갈 수 있는 페이지를 배열에 담을 수 있다
+  - 만약 로그인을 하지 않았는데 해당 페이지에 접근하면 로그인 페이지로 넘어가게 만든다.
+- 단, env 에 NEXTAUTH_URL 에 도메인을, NEXTAUTH_SECRET 에 아무 string 이나 넣어줘야 함
