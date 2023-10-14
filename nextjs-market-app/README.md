@@ -67,3 +67,14 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
 - SQL 인젝션 취약점으로부터 보호할 수 있다
 - 모델 유효성 검사를 지원한다
 - 타입스크립트를 지원한다
+
+# 2. Auth.js
+- next-auth 의 경우 /api/auth 로의 API 요청을 Next-Auth 가 처리할 수 있도록 세팅할 수 있다
+- adapter : 데이터를 저장하는데 사용할 데이터베이스 또는 백엔드 시스템에 어플리케이션을 연결하는 역할을 한다
+- providers : 어떠한 로그인을 사용할 것인지를 결정한다. 기본 로그인, 소셜 로그인 등
+  - Provider 를 만들 때마다 next-auth 에서 자동으로 생성해주는 로그인 화면이 커스터마이징된다
+
+## 2-1) Client 컴포넌트로 유저 정보 Session 저장하기
+- next-auth 에서 제공해주는 <SessionProvider></SessionProvider> 를 RootLayout 에서 감싸준다
+- useSession() 을 활용해 로그인된 유저 정보를 어디서든 가져올 수 있다
+- 로그인, 로그아웃 하는 UI 도 자동으로 만들어준
