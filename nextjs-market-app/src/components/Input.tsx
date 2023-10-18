@@ -29,6 +29,7 @@ const Input: React.FC<InputProps> = ({
       )}
       <input
         id={id}
+        type={type}
         disabled={disabled}
         {...register(id, { required })}
         placeholder={""}
