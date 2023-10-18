@@ -52,6 +52,9 @@ export const authOptions: NextAuthOptions = {
     secret: "HELLO",
     maxAge: 30 * 24 * 60 * 60,
   },
+  pages: {
+    signIn: "/auth/login",
+  },
   callbacks: {
     // 여기서 만든 정보가 session 의 token 인자로 넘어감
     async jwt({ token, user }) {
