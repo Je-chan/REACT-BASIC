@@ -1,5 +1,10 @@
 import React from "react";
-import { FieldError, FieldValues, UseFormRegister } from "react-hook-form";
+import {
+  FieldError,
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+} from "react-hook-form";
 
 interface InputProps {
   id: string;
@@ -8,8 +13,8 @@ interface InputProps {
   disabled?: boolean;
   formatPrice?: boolean;
   required?: boolean;
-  register: () => UseFormRegister<FieldValues>;
-  errors: FieldError;
+  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -38,6 +43,7 @@ const Input: React.FC<InputProps> = ({
                       p-4 
                       pt-6 
                       font-light 
+                      border-2
                       bg-white 
                       rounded-md 
                       outline-none 

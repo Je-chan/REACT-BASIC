@@ -10,7 +10,6 @@ export { default } from "next-auth/middleware";
 
 export async function middleware(req: NextRequest) {
   const session = await getToken({ req, secret: "HELLO" });
-  console.log("MIDDLE_WARE_SESSION", session);
 
   // 사용자가 접근한 path
   const pathname = req.nextUrl.pathname;
