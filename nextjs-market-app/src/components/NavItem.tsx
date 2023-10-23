@@ -1,14 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { User } from "@prisma/client";
+import { signIn, signOut } from "next-auth/react";
 
 type Props = {
+  currentUser: User;
   mobile?: boolean;
 };
-function NavItem({ mobile }: Props) {
-  const { data: session, status } = useSession();
-  console.log({ session }, status);
-
+function NavItem({ currentUser, mobile }: Props) {
   return (
     <ul
       className={`text-md justify-center flex gap-4 w-full items-center ${
@@ -21,7 +20,7 @@ function NavItem({ mobile }: Props) {
       <li className={"py-2 text-center border-b-4 cursor-pointer"}>
         <Link href={"/user"}>User</Link>
       </li>
-      {session?.user ? (
+      {currentUser ? (
         <li className={"py-2 text-center border-b-4 cursor-pointer"}>
           <button onClick={() => signOut()}>Signout</button>
         </li>

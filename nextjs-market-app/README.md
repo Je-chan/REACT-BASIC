@@ -76,6 +76,7 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
 
 ## 2-1) Client 컴포넌트로 유저 정보 Session 저장하기
 - next-auth 에서 제공해주는 <SessionProvider></SessionProvider> 를 RootLayout 에서 감싸준다
+  - 단 use client 를 사용해야 함
 - useSession() 을 활용해 로그인된 유저 정보를 어디서든 가져올 수 있다
 - 로그인, 로그아웃 하는 UI 도 자동으로 만들어준다
 
@@ -92,6 +93,11 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
   - 위 두가지를 활용해 navigation guard 를 설정해주는 것
 - NextResponse 를 활용해서 redirection 해주면 된다
 
-## 2-3) User 타입 정보
+## 2-4) User 타입 정보
 - 만약에 유저 정보에서 auto complete 되는 타입과 다른 타입을 사용하거나 수정해야한다면?
 - src/types 에 next-auth.d.ts 를 사용해 선언적으로 type 을 변경해야 한다
+
+## 2-5) 서버 컴포넌트 살리며 User 정보 가져오기
+- 일전에는 <SessionProvider></SessionProvider> 와 useSession 을 사용해서 유저 정보를 가져왔다
+  - Root Layout 에서부터 use client 를 사용해야만 유저 정보를 갖고 올 수 있었음
+- 하지만, 이제는 getServerSession 이라는 Hooks 를 제공해주고 있어서 이를 사용해 서버컴포넌트에서도 유저 정보를 가져올 수 있다

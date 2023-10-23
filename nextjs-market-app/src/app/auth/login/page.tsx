@@ -57,7 +57,7 @@ const LoginPage = () => {
           errors={errors}
           required
         />
-        <Button label={"Register"} onClick={() => console.log("click")} />
+        <Button label={"Login"} onClick={() => console.log("click")} />
         <div className={"text-center"}>
           <p className={"text-gray-400"}>
             Not a member?{" "}

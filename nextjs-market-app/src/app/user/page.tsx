@@ -1,6 +1,8 @@
 import React from "react";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
-function UserPage() {
+async function UserPage() {
+  const userData = await getCurrentUser();
   return <div>USER PAGE</div>;
 }
 

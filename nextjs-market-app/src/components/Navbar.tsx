@@ -3,9 +3,15 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import NavItem from "@/components/NavItem";
+import { User } from "@prisma/client";
 
-function Navbar() {
+interface NavbarProps {
+  currentUser: User | null;
+}
+
+function Navbar({ currentUser }: NavbarProps) {
   const [menu, setMenu] = useState(false);
+
   const handleMenu = () => {
     setMenu(!menu);
   };
@@ -23,11 +29,13 @@ function Navbar() {
         </div>
 
         <div className={"hidden sm:block"}>
-          <NavItem />
+          <NavItem currentUser={currentUser} />
         </div>
       </div>
 
-      <div className={"block sm:hidden"}>{menu ?? <NavItem mobile />}</div>
+      <div className={"block sm:hidden"}>
+        {menu ?? <NavItem currentUser={currentUser} mobile />}
+      </div>
     </nav>
   );
 }
