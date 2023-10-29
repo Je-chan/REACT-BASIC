@@ -7,6 +7,8 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ImageUpload from "@/components/ImageUpload";
+import { categories } from "@/components/categories/Categories";
+import CategoryInput from "@/components/categories/CategoryInput";
 
 const ProductUploadPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +34,8 @@ const ProductUploadPage = () => {
 
   // 이렇게 하면, useForm Field 인 imageSrc 가 변경될 때마다 할당해준 변수 imageSrc 의 값이 state 처럼 자동으로 변경된다.
   const imageSrc = watch("imageSrc");
+
+  const category = watch("category");
 
   // setCustomValue 를 하는 이유는 useFrom 에서 사용하는 register 함수를 사용하고 있지 않기 때문에 사용하는 것
   const setCustomValue = (id: string, value: any) => {
@@ -91,7 +95,19 @@ const ProductUploadPage = () => {
                             max-h-[50vh]
                             overflow-y-auto
                         "
-          ></div>
+          >
+            {categories.map((item) => (
+              <div key={item.label} className={"col-span-1"}>
+                <CategoryInput
+                  icon={item.icon}
+                  label={item.label}
+                  path={item.path}
+                  onClick={(category) => setCustomValue("category", category)}
+                  selected={category === item.path}
+                />
+              </div>
+            ))}
+          </div>
           <hr />
 
           <Button label="상품 생성하기" />
