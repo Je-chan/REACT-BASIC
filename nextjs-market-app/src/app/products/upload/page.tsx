@@ -9,6 +9,7 @@ import Heading from "@/components/Heading";
 import ImageUpload from "@/components/ImageUpload";
 import { categories } from "@/components/categories/Categories";
 import CategoryInput from "@/components/categories/CategoryInput";
+import dynamic from "next/dynamic";
 
 const ProductUploadPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +37,22 @@ const ProductUploadPage = () => {
   const imageSrc = watch("imageSrc");
 
   const category = watch("category");
+
+  /**
+   *  KakaoMap 은 dynamic import 로 가져와야 한다.
+   *
+   *  Dynamic Import 란?
+   *  - 모듈을 빌드 타임이 아닌 런타임에 불러오도록 한다
+   *  - 이 방식을 사용하면 번들 파일을 분리하고 퍼포먼스가 향상될 수 있다.
+   *    - (1) 초기 로딩 시 사이즈가 크거나 초기 로딩부터 사용하지 않을 때
+   *    - (2) 런타임에만 알 수 있는 정보에 기반해서 모듈을 가져와야 할 때
+   */
+  const KakaoMap = dynamic(() => import("../../../components/KakaoMap"), {
+    ssr: false,
+  });
+
+  const latitude = watch("latitude");
+  const longitude = watch("longitude");
 
   // setCustomValue 를 하는 이유는 useFrom 에서 사용하는 register 함수를 사용하고 있지 않기 때문에 사용하는 것
   const setCustomValue = (id: string, value: any) => {
@@ -108,7 +125,14 @@ const ProductUploadPage = () => {
               </div>
             ))}
           </div>
+
           <hr />
+
+          <KakaoMap
+            setCustomValue={setCustomValue}
+            latitude={latitude}
+            longitude={longitude}
+          />
 
           <Button label="상품 생성하기" />
         </form>

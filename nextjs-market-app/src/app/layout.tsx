@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
-import { SessionProvider } from "next-auth/react";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +25,7 @@ export default async function RootLayout({
         <Navbar currentUser={currentUser} />
         {children}
       </body>
+      <Script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=68f5e4a8ce36b9d35c79af56a21dc086&libraries=services,clusterer&autoload=false" />
     </html>
   );
 }
