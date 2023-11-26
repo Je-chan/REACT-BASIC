@@ -9,7 +9,6 @@ const divRef = useRef(null)
 
 return (
 	<div ref={divRef}>
-		{/* ... */}
 	</div>
 )
 ```
