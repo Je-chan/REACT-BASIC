@@ -28,7 +28,6 @@ useCallback(fn, dependencies)
 ## 2. 컴포넌트 리렌더링 건너뛰기
 
 - 렌더링 성능을 최적화할 때, 자식 컴포넌트에 함수를 캐시해야 할 때가 있다.
-
 ```jsx
 import { useCallback } from 'react';
 
