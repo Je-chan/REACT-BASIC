@@ -2,6 +2,7 @@ import { User } from "@prisma/client";
 import React, { useMemo } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface UseFavorite {
   productId: string;
@@ -20,6 +21,7 @@ const useFavorite = ({ productId, currentUser }: UseFavorite) => {
     e.stopPropagation();
 
     if (!currentUser) {
+      toast.warn("먼저 로그인을 해주세요.");
       return;
     }
 
@@ -37,7 +39,10 @@ const useFavorite = ({ productId, currentUser }: UseFavorite) => {
       // 데이터를 업데이트 한 다음에 바로 화면에 반영해주기 위함
       // Next.js 13 이 추천하는 방식
       router.refresh();
-    } catch (err) {}
+      toast.success("성공했습니다.");
+    } catch (err) {
+      toast.error("실패했습니다.");
+    }
   };
 
   return {
