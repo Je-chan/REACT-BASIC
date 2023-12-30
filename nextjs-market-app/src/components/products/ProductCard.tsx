@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-// import HeartButton from "../HeartButton";
 import { TProduct, TUser } from "@/types";
-// import { fromNow } from "@/helpers/dayjs";
+import { fromNow } from "@/helpers/dayjs";
 import React from "react";
 import HeartButton from "@/components/HeartButton";
+
 interface ProductCardProps {
   data: TProduct;
   currentUser?: TUser | null;
@@ -37,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data, currentUser }) => {
           <div className="font-semibold">
             {data.price} <span className="font-light">원</span>
           </div>
-          {/*<div>{fromNow(data.createdAt)}</div>*/}
+          <div>{fromNow(data.createdAt)}</div>
         </div>
       </div>
     </div>
