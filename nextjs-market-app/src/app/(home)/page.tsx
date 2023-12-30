@@ -4,6 +4,7 @@ import EmptyState from "@/components/EmptyState";
 import ProductCard from "@/components/products/ProductCard";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import FloatingButton from "@/components/FloatingButton";
+import Categories from "@/components/categories/Categories";
 
 interface HomeProps {
   searchParams: ProductsParams;
@@ -13,10 +14,11 @@ export default async function Home({ searchParams }: HomeProps) {
   const products = await getProducts(searchParams);
   const currentUser = await getCurrentUser();
 
-  console.log(products);
   return (
     <Container>
       {/*  Category */}
+      <Categories />
+      {products.data.length === 0 ? <EmptyState showReset /> : <></>}
 
       {/*  Products */}
 

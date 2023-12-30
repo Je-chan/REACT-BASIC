@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { IconType } from "react-icons";
+import React from "react";
 interface CategoryBoxProps {
   icon: IconType;
   label: string;
@@ -13,9 +14,10 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   path,
   selected,
 }) => {
+  const href = selected ? "/" : `/?category=${path}`;
   return (
     <Link
-      href={`/?category=${path}`}
+      href={href}
       className={`
         flex 
         flex-col 

@@ -58,6 +58,7 @@ export const categories = [
 ];
 
 const Categories = () => {
+  // useSearchParams 를 활용해 쿼리로 들어간 값을 사용할 수 있다.
   const params = useSearchParams();
   const category = params?.get("category");
 
@@ -69,7 +70,7 @@ const Categories = () => {
           label={item.label}
           path={item.path}
           icon={item.icon}
-          selected={category === item.label}
+          selected={category === item.path}
         />
       ))}
     </div>
