@@ -16,11 +16,8 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <Container>
-      {/*  Category */}
       <Categories />
       {products.data.length === 0 ? <EmptyState showReset /> : <></>}
-
-      {/*  Products */}
 
       {products?.data.length === 0 ? (
         <EmptyState />
