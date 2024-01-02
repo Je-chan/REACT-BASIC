@@ -101,3 +101,7 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
 - 일전에는 <SessionProvider></SessionProvider> 와 useSession 을 사용해서 유저 정보를 가져왔다
   - Root Layout 에서부터 use client 를 사용해야만 유저 정보를 갖고 올 수 있었음
 - 하지만, 이제는 getServerSession 이라는 Hooks 를 제공해주고 있어서 이를 사용해 서버컴포넌트에서도 유저 정보를 가져올 수 있다
+
+# 3. Prisma Pagination
+- 페이지네이션 방법에는 두 가지가 있음
+- 이번 프로젝트에서는 Offset Pagination 을 사용함
