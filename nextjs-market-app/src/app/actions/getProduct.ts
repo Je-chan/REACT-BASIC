@@ -1,4 +1,5 @@
 import prisma from "@/helpers/prismadb";
+import { PRODUCTS_PER_PAGE } from "@/constants";
 
 export interface ProductsParams {
   latitude?: number;
@@ -10,7 +11,7 @@ export interface ProductsParams {
 
 export default async function getProducts(params: ProductsParams) {
   try {
-    const { latitude, longitude, category } = params;
+    const { latitude, longitude, category, skip } = params;
 
     let query: any = {};
 
@@ -41,6 +42,8 @@ export default async function getProducts(params: ProductsParams) {
       orderBy: {
         createdAt: "desc",
       },
+      take: PRODUCTS_PER_PAGE,
+      skip: skip ? Number(skip) : 0,
     });
 
     return {
