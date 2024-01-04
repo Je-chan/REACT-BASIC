@@ -25,41 +25,6 @@ const Pagination = ({ page, totalItems, perPage }: PaginationProps) => {
 
   const arr = new Array(totalPages + 2);
 
-  // return (
-  //   <div>
-  //     {[...arr].map((_, i) => {
-  //       const { page, disabled, current } = getPageItem(i);
-  //       if (page === "previous") {
-  //         return (
-  //           <PaginationLink page={prevPage} disabled={disabled} key={page}>
-  //             {`<`}
-  //           </PaginationLink>
-  //         );
-  //       }
-  //
-  //       if (page === "gap") {
-  //         return <span key={`${page}-${i}`}>...</span>;
-  //       }
-  //
-  //       if (page === "next") {
-  //         return (
-  //           <PaginationLink page={nextPage} disabled={disabled} key={page}>
-  //             {`>`}
-  //           </PaginationLink>
-  //         );
-  //       }
-  //
-  //       if (!page) return null;
-  //
-  //       return (
-  //         <PaginationLink active={current} key={page} page={page!}>
-  //           {page}
-  //         </PaginationLink>
-  //       );
-  //     })}
-  //   </div>
-  // );
-
   return (
     <div className={"flex items-center justify-center gap-2 mt-4"}>
       {[...arr].map((_, i) => {
