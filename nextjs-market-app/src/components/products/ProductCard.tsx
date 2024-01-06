@@ -5,10 +5,11 @@ import { TProduct, TUser } from "@/types";
 import { fromNow } from "@/helpers/dayjs";
 import React from "react";
 import HeartButton from "@/components/HeartButton";
+import { Product, User } from "@prisma/client";
 
 interface ProductCardProps {
-  data: TProduct;
-  currentUser?: TUser | null;
+  data: Product;
+  currentUser?: User | null;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data, currentUser }) => {
