@@ -105,3 +105,38 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
 # 3. Prisma Pagination
 - 페이지네이션 방법에는 두 가지가 있음
 - 이번 프로젝트에서는 Offset Pagination 을 사용함
+
+# 4. 채팅을 구현하는 방법
+- http polling, websocket, redis, pusher 라이브러리 등등 다양한 방법이 존재
+- 이번 프로젝트에서는 http polling 방식을 사용
+
+## 4-1) RestAPI vs Websocket
+- 실시간 통신을 할 때 Websocket 을 사용함
+- Reset 는 복잡한 네트워크에서 통신을 관리하기 위한 지침. 
+  - 이 지침을 잘 지켰을 때 Restful 하다고 표현
+  - 단방향 통신.
+  - 클라이언트는 최초에만 데이터를 수신하며 이후에는 데이터를 보내는 것만 가능. 
+- Websocket 은 양방향 통신
+
+## 4-2) Polling, LongPolling
+### Polling
+- Rest 를 이용해서 실시간으로 정보를 받는 듯한 방식
+- 클라이언트가 일정한 간격으로 서버에 요청을 보내서 결과를 전달받는 방식
+- 구현은 쉽지만 서버의 상태가 변하지 않았을 때도 계속 요청을 보냄
+  - 요청 간격을 어떻게 정하는지에 대한 문제
+  - 간격이 짧으면 서버 성능에 부담되고, 길면 실시간성이 좋지 않음
+
+### LongPoling
+- Polling 의 단점으로 인해 새롭게 고안해낸 방식
+- Polling 과 마찬가지로 계속 요청을 보내지만,
+- LongPolling 은 요청을 보내면 서버가 대기하고 있다가 이벤트가 발생하거나 타임아웃이 발생할 대까지 기다린 후에 응답을 보냄
+  - 서버의 상태 변화가 많이 없다면 폴링 방식보다 서버의 부담을 줄이게 됨
+  - 이런 특징으로 LongPolling 은 실시간 메시지 전달이 중요하지만, 서버 상태 변화가 자주 발생하지 않는 서비스에 적합
+  
+## 4-3) Streaming
+- 클라이언트에서 서버에 요청을 보내고 끊기지 않는 연결상태에서 데이터를 계속 수신하는 것
+- 양방향 소통보다는 서버에서 계속 요청을 받을 때 유용하다
+
+## 4-4) Http 통신 방법과 WebSocket 의 차이
+- Websocket 은 처음에 Handshake를 위해서만 HTTP 프로토콜을 이용하고, 이후부터는 독립적인 ws 를 사용한다
+- HTTP 요청은 응답이 온 후 연결이 끊기지만 Websocket 은 Handshake 가 완료되고 임의로 연결을 끊기 전까지는 계속 연결된다
