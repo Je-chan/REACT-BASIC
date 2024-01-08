@@ -9,7 +9,7 @@ interface ProductInfoProps {
   user: User;
   description: string;
   createdAt: Date;
-  category: {
+  category?: {
     icon: IconType;
     label: string;
     description: string;
