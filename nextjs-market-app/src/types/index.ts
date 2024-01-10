@@ -5,7 +5,7 @@ export type TUser = Omit<User, "createdAt" | "updatedAt"> & {
   updatedAt: string;
 };
 
-export type TUserWithChat = TUser & {
+export type TUserWithChat = User & {
   conversations: TConversation[];
 };
 
@@ -17,7 +17,7 @@ export type TProduct = Omit<Product, "createdAt" | "updatedAt"> & {
 export type TConversation = {
   id: string;
   messages: Message[];
-  users: TUser[];
+  users: User[];
 };
 
 export type TMessage = Message;

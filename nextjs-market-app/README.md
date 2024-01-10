@@ -140,3 +140,13 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
 ## 4-4) Http 통신 방법과 WebSocket 의 차이
 - Websocket 은 처음에 Handshake를 위해서만 HTTP 프로토콜을 이용하고, 이후부터는 독립적인 ws 를 사용한다
 - HTTP 요청은 응답이 온 후 연결이 끊기지만 Websocket 은 Handshake 가 완료되고 임의로 연결을 끊기 전까지는 계속 연결된다
+
+# 5. SWR(stale-while-revalidate)
+- 데이터를 가져오기 위한 React Hook 라이브러리
+- SWR 은 원격 데이터를 가져올 때 캐싱된 데이터가 있으면 그 데이터를 먼저 반환
+- 반환된 다음 가져오기 요청을 보내고 마지막으로 최신 데이터와 함게 제공하는 라이브러리
+- React Query 를 사용할 수 있지만 이 Hook 을 이용하는 방법도 존재
+## 5-1) 사용법
+- useSWR 훅을 사용해 첫 번재 인자는 API URL 이면서 캐싱값과 매핑될 key
+- 두 번째 인자는 fetcher 로, Fetch API 나 Axios, GraphQL 등을 사용할 수 있다.
+- 
