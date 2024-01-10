@@ -4,6 +4,7 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import useSWR from "swr";
 import { TUserWithChat } from "@/types";
+import Contacts from "@/components/chat/Contacts";
 
 interface ChatClientProps {
   currentUser?: User | null;
@@ -40,12 +41,12 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
         {/* md 보다 클 때는 둘다 보여야함. */}
         {/* md보다 작고 layout이 true 일때는 contact 안보임  */}
         <section className={`md:flex ${layout && "hidden"}  `}>
-          {/*<Contacts*/}
-          {/*  users={users}*/}
-          {/*  currentUser={currentUserWithMessage}*/}
-          {/*  setLayout={setLayout}*/}
-          {/*  setReceiver={setReceiver}*/}
-          {/*/>*/}
+          <Contacts
+            users={users}
+            currentUser={currentUserWithMessage}
+            setLayout={setLayout}
+            setReceiver={setReceiver}
+          />
         </section>
 
         {/* md 보다 클 때는 둘다 보여야함. */}
