@@ -39,9 +39,7 @@ const Contacts = ({
   return (
     <div className="w-full overflow-auto h-[calc(100vh_-_56px)] border-[1px]">
       <h1 className="m-4 text-2xl font-semibold">Chat</h1>
-
-      <hr />
-
+      <br />
       <div className="flex flex-col">
         {users.length > 0 &&
           users
