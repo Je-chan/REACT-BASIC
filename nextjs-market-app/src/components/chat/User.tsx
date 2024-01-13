@@ -1,6 +1,11 @@
 import React from "react";
+import { TUserWithChat } from "@/types";
 
-const User = () => {
+interface UserProps {
+  user: TUserWithChat;
+  currentUserId: TUserWithChat["id"];
+}
+const User = ({ user, currentUserId }: UserProps) => {
   return <div>USER</div>;
 };
 
