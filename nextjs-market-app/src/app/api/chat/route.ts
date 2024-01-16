@@ -75,23 +75,46 @@ export async function POST(request: Request) {
         },
       });
 
-      return NextResponse.json(message)
+      return NextResponse.json(message);
     } catch (err) {
-      return NextResponse.json(err)
+      return NextResponse.json(err);
     }
   } else {
-    await prisma?.conversation.create({
+    const newConversation = await prisma?.conversation.create({
       data: {
         senderId: body.senderId,
         receiverId: body.receiverId,
         users: {
           connect: [
             {
-              id: body.
-            }
-          ]
-        }
-      }
-    })
+              id: body.senderId,
+            },
+            {
+              id: body.receiverId,
+            },
+          ],
+        },
+      },
+    });
+
+    if (!newConversation) {
+      throw new Error("대화가 생성되지 않음");
+    }
+
+    try {
+      const message = await prisma?.message.create({
+        data: {
+          text: body.text,
+          image: body.image,
+          senderId: body.senderId,
+          receiverId: body.receiverId,
+          conversationId: newConversation.id,
+        },
+      });
+
+      return NextResponse.json(message);
+    } catch (err) {
+      return NextResponse.json(err);
+    }
   }
 }
