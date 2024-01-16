@@ -1,6 +1,7 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import User from "./User";
+import { useSearchParams } from "next/navigation";
 import { TUserWithChat } from "@/types";
-import User from "@/components/chat/User";
 
 interface IContactsProps {
   users: TUserWithChat[];
@@ -39,7 +40,9 @@ const Contacts = ({
   return (
     <div className="w-full overflow-auto h-[calc(100vh_-_56px)] border-[1px]">
       <h1 className="m-4 text-2xl font-semibold">Chat</h1>
-      <br />
+
+      <hr />
+
       <div className="flex flex-col">
         {users.length > 0 &&
           users

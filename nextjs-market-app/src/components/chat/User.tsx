@@ -1,6 +1,7 @@
 import React from "react";
 import { TConversation, TUserWithChat } from "@/types";
 import { fromNow } from "@/helpers/dayjs";
+import Avatar from "@/components/Avatar";
 
 interface UserProps {
   user: TUserWithChat;
@@ -20,7 +21,7 @@ const User = ({ user, currentUserId }: UserProps) => {
     border-b-[1px] hover:cursor-pointer hover:bg-orange-500"
     >
       <div className="w-10 h-10 overflow-hidden bg-white rounded-full">
-        <img src={user.image || ""} alt="" />
+        <Avatar src={user.image || ""} />
       </div>
       <div>
         <h3 className="overflow-hidden text-base font-medium">{user.name}</h3>
