@@ -1,8 +1,9 @@
-import React from "react";
-import { TConversation, TUserWithChat } from "@/types";
+import React, { useEffect, useRef } from "react";
+import { TConversation, TMessage, TUserWithChat } from "@/types";
 import Input from "@/components/Input";
 import ChatInput from "@/components/chat/Input";
 import ChatHeader from "@/components/chat/ChatHeader";
+import Message from "@/components/chat/Message";
 
 interface ChatProps {
   currentUser: TUserWithChat;
@@ -20,17 +21,17 @@ const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
       conversation.users.find((user) => user.id === receiver.receiverId),
     );
 
-  // const messagesEndRef = useRef<null | HTMLDivElement>(null);
-  //
-  // const scrollToBottom = () => {
-  //   messagesEndRef?.current?.scrollIntoView({
-  //     behavior: "smooth",
-  //   });
-  // };
-  //
-  // useEffect(() => {
-  //   scrollToBottom();
-  // });
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef?.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  });
 
   if (!receiver.receiverName || !currentUser)
     return <div className="w-full h-full"></div>;
@@ -51,36 +52,36 @@ const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
       </div>
 
       <div className="flex flex-col gap-8 p-4 overflow-auto h-[calc(100vh_-_60px_-_70px_-_80px)]">
-        {/*{conversation &&*/}
-        {/*  conversation.messages*/}
-        {/*    // .filter((message: TMessage) => {*/}
-        {/*    //   if (receiver.receiverId) {*/}
-        {/*    //     if (*/}
-        {/*    //       (message.senderId === receiver.receiverId &&*/}
-        {/*    //         message.receiverId === currentUser.id) ||*/}
-        {/*    //       (message.receiverId === receiver.receiverId &&*/}
-        {/*    //         message.senderId === currentUser.id)*/}
-        {/*    //     ) {*/}
-        {/*    //       return message;*/}
-        {/*    //     }*/}
-        {/*    //   }*/}
-        {/*    //   return null;*/}
-        {/*    // })*/}
-        {/*    .map((message) => {*/}
-        {/*      return (*/}
-        {/*        <Message*/}
-        {/*          key={message.id}*/}
-        {/*          isSender={message.senderId === currentUser.id}*/}
-        {/*          messageText={message.text}*/}
-        {/*          messageImage={message.image}*/}
-        {/*          receiverName={receiver.receiverName}*/}
-        {/*          receiverImage={receiver.receiverImage}*/}
-        {/*          senderImage={currentUser?.image}*/}
-        {/*          time={message.createdAt}*/}
-        {/*        />*/}
-        {/*      );*/}
-        {/*    })}*/}
-        {/*<div ref={messagesEndRef} />*/}
+        {conversation &&
+          conversation.messages
+            .filter((message: TMessage) => {
+              if (receiver.receiverId) {
+                if (
+                  (message.senderId === receiver.receiverId &&
+                    message.receiverId === currentUser.id) ||
+                  (message.receiverId === receiver.receiverId &&
+                    message.senderId === currentUser.id)
+                ) {
+                  return message;
+                }
+              }
+              return null;
+            })
+            .map((message) => {
+              return (
+                <Message
+                  key={message.id}
+                  isSender={message.senderId === currentUser.id}
+                  messageText={message.text}
+                  messageImage={message.image}
+                  receiverName={receiver.receiverName}
+                  receiverImage={receiver.receiverImage}
+                  senderImage={currentUser?.image}
+                  time={message.createdAt}
+                />
+              );
+            })}
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="flex items-center p-3">
