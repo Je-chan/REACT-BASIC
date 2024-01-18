@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { TConversation, TMessage, TUserWithChat } from "@/types";
-import Input from "@/components/Input";
 import ChatInput from "@/components/chat/Input";
 import ChatHeader from "@/components/chat/ChatHeader";
 import Message from "@/components/chat/Message";
