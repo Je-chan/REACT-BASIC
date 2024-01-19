@@ -149,4 +149,12 @@ db.query('SELECT * FROM boards WHERE title = "Hello" AND status = "PUBLIC"', (er
 ## 5-1) 사용법
 - useSWR 훅을 사용해 첫 번재 인자는 API URL 이면서 캐싱값과 매핑될 key
 - 두 번째 인자는 fetcher 로, Fetch API 나 Axios, GraphQL 등을 사용할 수 있다.
-- 
+
+## 5-2) useSWRMutation
+- useSWR 은 주된 인자로 key 와 fetch 가 있다.
+  - 첫 번재 인자는 API URL 이면서 캐싱할 때 사용하는 key 가 된다.
+  - 두 번째 인자는 fetcher 로 Fetch API 를 기본으로 한다.
+  - mutate 를 할 수는 있으나 data 를 먼저 가져온 뒤에 mutation 을 할 수 있다.
+- useSWRMutaion 은 바로 데이터를 가져오지 않고 trigger 라는 함수를 호출해야지만 데이터를 가져온다.
+  - 첫 번재 인자는 key 값
+  - 두 번째 인자는 Update 함수
